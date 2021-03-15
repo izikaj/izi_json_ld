@@ -1,0 +1,3 @@
+# Izi JSON-ld
+
+Utils to add json-ld schema more easily
