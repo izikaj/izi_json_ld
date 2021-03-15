@@ -23,7 +23,8 @@ RSpec.describe AggregateRatingEntity do
 
   [
     ['bestRating', 5],
-    ['worstRating', 1]
+    ['worstRating', 1],
+    ['reviewCount', 1]
   ].each do |(field, value)|
     it "should have default #{field}" do
       expect(item.as_json).to have_key field

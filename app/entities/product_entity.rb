@@ -11,4 +11,5 @@ class ProductEntity < ApplicationEntity
 
   attribute? :offers, OfferEntity.optional
   attribute? :aggregateRating, AggregateRatingEntity.optional
+  attribute? :review, (::IziJsonLd::Types::Array.of(::ReviewEntity) | ::ReviewEntity).optional
 end

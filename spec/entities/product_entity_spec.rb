@@ -46,4 +46,29 @@ RSpec.describe ProductEntity do
       expect(item.as_json.dig('offers', 'url')).to eq 'test'
     end
   end
+
+  context 'with review' do
+    let(:review) { { author: 'test', reviewRating: { ratingValue: 2 } } }
+    let(:reviews) do
+      [
+        { author: 'test', reviewRating: { ratingValue: 2 } },
+        { author: 'test2', reviewRating: { ratingValue: 3 } },
+        { author: 'test3', reviewRating: { ratingValue: 4 } }
+      ]
+    end
+
+    it 'should allow create product with single review' do
+      data = described_class.new(name: 'Test', review: review)
+      expect(data.to_json).to be_present
+      expect(data.as_json['review']).to be_present
+      expect(data.as_json['review'].class.name).to eq 'Hash'
+    end
+
+    it 'should allow create product with single review' do
+      data = described_class.new(name: 'Test', review: reviews)
+      expect(data.to_json).to be_present
+      expect(data.as_json['review']).to be_present
+      expect(data.as_json['review'].class.name).to eq 'Array'
+    end
+  end
 end
