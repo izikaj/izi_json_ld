@@ -35,6 +35,12 @@ RSpec.describe ProductEntity do
       expect(item.as_json['aggregateRating']).to be_present
       expect(item.as_json.dig('aggregateRating', 'ratingValue')).to eq 4
     end
+
+    it 'should have aggregateRating @type' do
+      expect(item.as_json).to have_key 'aggregateRating'
+      expect(item.as_json['aggregateRating']).to be_present
+      expect(item.as_json.dig('aggregateRating', '@type')).to eq 'AggregateRating'
+    end
   end
 
   context 'with offers' do
@@ -44,6 +50,12 @@ RSpec.describe ProductEntity do
       expect(item.as_json).to have_key 'offers'
       expect(item.as_json['offers']).to be_present
       expect(item.as_json.dig('offers', 'url')).to eq 'test'
+    end
+
+    it 'offers should have right @type' do
+      expect(item.as_json).to have_key 'offers'
+      expect(item.as_json['offers']).to be_present
+      expect(item.as_json.dig('offers', '@type')).to eq 'Offer'
     end
   end
 
@@ -69,6 +81,21 @@ RSpec.describe ProductEntity do
       expect(data.to_json).to be_present
       expect(data.as_json['review']).to be_present
       expect(data.as_json['review'].class.name).to eq 'Array'
+    end
+
+    it 'review & reviewRating should contain right @type' do
+      data = described_class.new(name: 'Test', review: reviews)
+      expect(data.as_json.dig('review', 0, '@type')).to eq 'Review'
+      expect(data.as_json.dig('review', 0, 'reviewRating', '@type')).to eq 'Rating'
+    end
+
+    it 'ensure proper serialization' do
+      data = described_class.new(name: 'Test', review: reviews)
+      raw = data.to_json
+      parsed = JSON.parse(raw)
+      expect(parsed).to be_present
+      expect(parsed.dig('review', 0, '@type')).to eq 'Review'
+      expect(parsed.dig('review', 0, 'reviewRating', '@type')).to eq 'Rating'
     end
   end
 end

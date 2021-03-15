@@ -3,3 +3,4 @@
 *.yml
 .env
 .byebug_history
+*.log
