@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.email = 'izikaj@gmail.com'
   s.homepage = 'https://bitbucket.org/netfixllc/izi_json_ld'
 
-  s.files = Dir['{app,config,db,lib,vendor/assets}/**/*'] + ['README.rdoc']
+  s.files = Dir['{app,config,lib}/**/*'] + ['README.rdoc']
   s.test_files = Dir['{spec}/**/*']
   s.require_paths = ['lib']
 
