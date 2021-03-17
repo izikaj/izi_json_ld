@@ -1,4 +1,1 @@
-source 'https://rubygems.org'
-
-gem 'gemika'
-gem 'rake'
+Gemfile_4.2
