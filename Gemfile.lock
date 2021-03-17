@@ -189,7 +189,6 @@ DEPENDENCIES
   dry-struct
   faker
   gemika
-  guard
   guard-rspec
   rails (~> 4.2.0)
   rake

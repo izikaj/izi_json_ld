@@ -1,0 +1,24 @@
+# /bin/sh
+
+# store prevous ruby version
+CURR="$(cat .ruby-version)"
+
+rbenv local 2.3.8
+rm Gemfile_*.lock
+bundle exec rake matrix:install 1>/dev/null
+bundle exec rake matrix:spec
+
+rbenv local 2.4.10
+rm Gemfile_*.lock
+bundle exec rake matrix:install 1>/dev/null
+bundle exec rake matrix:spec
+
+rbenv local 2.7.1
+rm Gemfile_*.lock
+bundle exec rake matrix:install 1>/dev/null
+BUNDLE_GEMFILE=Gemfile_6.1 bundle exec rake matrix:spec
+
+# restore prevous ruby version
+rbenv local "$CURR"
+rm Gemfile_*.lock
+bundle exec rake matrix:install 1>/dev/null
