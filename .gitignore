@@ -2,6 +2,7 @@
 .bak
 *.yml
 !.travis.yml
+!config/database.yml
 .env
 .byebug_history
 *.log
