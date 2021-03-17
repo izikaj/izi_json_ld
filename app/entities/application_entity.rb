@@ -5,6 +5,8 @@ class ApplicationEntity < Dry::Struct
   delegate :extras, to: :class
   delegate :as_json, to: :dump
 
+  DEFAULT_CONTEXT = 'https://schema.org'
+
   class << self
     def extras
       @extras ||= {}
@@ -12,6 +14,10 @@ class ApplicationEntity < Dry::Struct
 
     def extra(key, value)
       extras[key] = value
+    end
+
+    def type(value)
+      extra('@type', value)
     end
   end
 
