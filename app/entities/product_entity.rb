@@ -2,7 +2,6 @@
 
 class ProductEntity < ApplicationEntity
   type 'Product'
-  extra '@context', 'http://www.schema.org'
 
   attribute :name, ::IziJsonLd::Types::String
   attribute? :brand, ::IziJsonLd::Types::String.optional

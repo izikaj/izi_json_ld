@@ -22,18 +22,36 @@ class ApplicationEntity < Dry::Struct
   end
 
   def to_h
-    extras.merge(super)
+    dump
   end
 
   def to_json(*args)
     super.html_safe
   end
 
-  def dump
-    @dump ||= extras.merge(dump_attributes)
+  def dump(ref = nil)
+    @dump ||= build_extras(ref).merge(dump_attributes)
   end
 
   private
+
+  def build_extras(ref)
+    data = {}
+
+    data['@context'] = DEFAULT_CONTEXT unless context? || same?(ref, '@context')
+
+    extras.merge(data)
+  end
+
+  def context?
+    extras['@context'].present?
+  end
+
+  def same?(ref, at_key = '@context')
+    return false if ref.nil?
+
+    ref.extras.fetch(at_key, nil) == extras.fetch(at_key, nil)
+  end
 
   def dump_attributes
     attributes.each_with_object({}) do |(key, val), result|
@@ -44,9 +62,9 @@ class ApplicationEntity < Dry::Struct
   def dump_value(data)
     case data
     when ApplicationEntity
-      return data.dump
+      return data.dump(self)
     when Array
-      return data.map(&:dump) if data.first.is_a?(ApplicationEntity)
+      return data.map { |i| i.dump(self) } if data.first.is_a?(ApplicationEntity)
     end
 
     data
