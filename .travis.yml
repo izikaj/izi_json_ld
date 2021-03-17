@@ -1,0 +1,36 @@
+language: ruby
+sudo: false
+cache: bundler
+
+rvm:
+  - 2.3.8
+  # - 2.4.10
+  # - 2.5.5
+  # - 2.6.6
+  - 2.7.1
+
+gemfile:
+  - Gemfile_4.2
+  - Gemfile_5.2
+  - Gemfile_6.1
+
+matrix:
+  exclude:
+    - gemfile: Gemfile_5.2
+      rvm: 2.3.8
+    - gemfile: Gemfile_6.1
+      rvm: 2.3.8
+    - gemfile: Gemfile_4.2
+      rvm: 2.7.1
+
+
+notifications:
+  email:
+    - izikaj@gmail.com
+
+install:
+  # Replace default Travis CI bundler script with a version that doesn't
+  # explode when lockfile doesn't match recently bumped version
+  - bundle install --no-deployment --jobs=3 --retry=3 --path=${BUNDLE_PATH:-vendor/bundle}
+
+script: bundle exec rake current_rspec
