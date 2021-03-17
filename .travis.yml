@@ -5,25 +5,26 @@ cache: bundler
 rvm:
   - 2.3.8
   - 2.4.10
-  # - 2.5.5
-  # - 2.6.6
   - 2.7.1
 
-gemfile:
-  - Gemfile_4.2
-  - Gemfile_5.2
-  - Gemfile_6.1
+# gemfile:
+#   - Gemfile_4.2
+#   - Gemfile_5.2
+#   - Gemfile_5.2_next
+#   - Gemfile_6.1
 
 matrix:
-  exclude:
-    - gemfile: Gemfile_4.2
-      rvm: 2.7.1
-    - gemfile: Gemfile_5.2
-      rvm: 2.3.8
-    - gemfile: Gemfile_6.1
-      rvm: 2.3.8
-    - gemfile: Gemfile_6.1
-      rvm: 2.4.10
+  include:
+    - rvm: 2.3.8
+      gemfile: Gemfile_4.2
+    - rvm: 2.4.10
+      gemfile: Gemfile_4.2
+    - rvm: 2.4.10
+      gemfile: Gemfile_5.2
+    - rvm: 2.7.1
+      gemfile: Gemfile_5.2_next
+    - rvm: 2.7.1
+      gemfile: Gemfile_6.1
 
 notifications:
   email:
