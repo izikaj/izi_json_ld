@@ -5,7 +5,7 @@ cache: bundler
 matrix:
   include:
     - rvm: 2.3.8
-      gemfile: Gemfile_4.2
+      gemfile: Gemfile_4.2_legacy
     - rvm: 2.4.10
       gemfile: Gemfile_4.2
     - rvm: 2.4.10

@@ -9,10 +9,30 @@ Tests should be run inside dummy rails app
 
 ### run rspec
 ```
-spec/dummy/bin/rspec
+bundle exec rspec
 ```
 
 ### run guard
 ```
-spec/dummy/bin/guard
+bundle exec guard
+```
+
+### run rspec for all setups on current ruby
+```
+bundle exec matrix:spec
+```
+
+### run rspec for all setups on current ruby
+```
+bundle exec matrix:spec
+```
+
+### bundle for all setups on all rubies
+```
+bin/bundle_all
+```
+
+### spec for all setups on all rubies
+```
+bin/spec_all
 ```

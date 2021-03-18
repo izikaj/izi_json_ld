@@ -8,8 +8,8 @@ class ArticleEntity < ApplicationEntity
 
   attribute? :image, ::IziJsonLd::Types::String.optional
   attribute? :description, ::IziJsonLd::Types::String.optional
-  attribute? :author, OrganizationEntity.optional
-  attribute? :publisher, OrganizationEntity.optional
+  attribute? :author, (PersonEntity | OrganizationEntity).optional
+  attribute? :publisher, (PersonEntity | OrganizationEntity).optional
 
   attribute? :datePublished, ::IziJsonLd::Types::DateTime.optional
   attribute? :dateModified, ::IziJsonLd::Types::DateTime.optional

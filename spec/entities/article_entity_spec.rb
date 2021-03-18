@@ -66,7 +66,43 @@ RSpec.describe ArticleEntity do
       ['Publisher logo type', %w[publisher logo @type], 'ImageObject'],
       ['Publisher logo', %w[publisher logo url], 'https://exampla.com/logo.png'],
       ['Post image', %w[image], 'https://exampla.com/blog/page.png'],
+      ['Author as org', %w[author @type], 'Organization'],
       ['Author name', %w[author name], 'TestUser']
+    ].each do |(desc, path, val)|
+      it "should render #{desc}[#{path.join('.')}]" do
+        expect(item.as_json.dig(*path)).to be_present
+        expect(item.as_json.dig(*path)).to eq val
+      end
+    end
+  end
+
+  context 'with author as a Person' do
+    let(:item) do
+      described_class.new(
+        mainEntityOfPage: {
+          web_page: 'https://exampla.com/blog/page'
+        },
+        headline: 'Test Article Title',
+        publisher: {
+          person_name: 'SiteOwner',
+          email: 'site.owner@example.com',
+          image: 'owner.png'
+        },
+        author: {
+          person_name: 'TestBlogger',
+          image: 'blogger.png'
+        }
+      )
+    end
+
+    [
+      ['Publisher as person', %w[publisher @type], 'Person'],
+      ['Publisher name', %w[publisher name], 'SiteOwner'],
+      ['Publisher email', %w[publisher email], 'site.owner@example.com'],
+      ['Publisher image', %w[publisher image], 'owner.png'],
+      ['Author as person', %w[author @type], 'Person'],
+      ['Author name', %w[author name], 'TestBlogger'],
+      ['Author image', %w[author image], 'blogger.png']
     ].each do |(desc, path, val)|
       it "should render #{desc}[#{path.join('.')}]" do
         expect(item.as_json.dig(*path)).to be_present

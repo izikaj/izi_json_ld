@@ -11,7 +11,7 @@ do
   echo "Ruby - $ruby; Gemfile: $gemfile"
 
   rbenv local "$ruby"
-  BUNDLE_GEMFILE=$gemfile bundle exec rake matrix:spec
+  BUNDLE_GEMFILE=$gemfile bundle exec rake matrix:install
 done
 
 # restore prevous ruby version
