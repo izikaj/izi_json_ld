@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FAQPageEntity < ApplicationEntity
+class FaqPageEntity < ApplicationEntity
   type 'FAQPage'
 
   attribute :mainEntity, ::IziJsonLd::Types::OneOrMore[::QuestionEntity]

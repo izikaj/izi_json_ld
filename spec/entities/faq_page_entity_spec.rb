@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe FAQPageEntity do
+RSpec.describe FaqPageEntity do
   let(:item) { described_class.new(mainEntity: []) }
 
   it 'should be searializable as hash' do
