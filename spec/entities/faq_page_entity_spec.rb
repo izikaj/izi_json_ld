@@ -71,5 +71,18 @@ RSpec.describe FaqPageEntity do
       expect(answer['name']).to eq 'ShortQuestion'
       expect(answer.dig('acceptedAnswer', 'text')).to eq 'ShortAnswer'
     end
+
+    it 'should not render useless @context' do
+      parsed = JSON.parse(item.to_json)
+
+      expect(parsed['@context']).to be_present
+      expect(parsed['@context']).to eq 'https://schema.org'
+
+      expect(parsed.dig('mainEntity', 0)).to be_present
+      expect(parsed.dig('mainEntity', 0)).not_to have_key '@context'
+
+      expect(parsed.dig('mainEntity', 0, 'acceptedAnswer')).to be_present
+      expect(parsed.dig('mainEntity', 0, 'acceptedAnswer')).not_to have_key '@context'
+    end
   end
 end

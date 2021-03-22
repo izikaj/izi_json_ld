@@ -8,7 +8,7 @@ class QuestionEntity < ApplicationEntity
   attribute? :answer, ::IziJsonLd::Types::String
 
   def dump_attributes
-    attributes.except(:answer).merge(acceptedAnswer: safe_answer.dump)
+    attributes.except(:answer).merge(acceptedAnswer: safe_answer.dump(self))
   end
 
   private
