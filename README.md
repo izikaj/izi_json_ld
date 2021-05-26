@@ -36,3 +36,7 @@ bin/bundle_all
 ```
 bin/spec_all
 ```
+
+## TODO
+- migrate to GH Actions
+- add some documentation
