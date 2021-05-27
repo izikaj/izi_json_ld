@@ -7,6 +7,12 @@ RSpec.describe PersonEntity do
     expect(item.to_json).to be_present
   end
 
+  it 'should have @context' do
+    expect(item.as_json).to have_key '@context'
+    expect(item.as_json['@context']).to be_present
+    expect(item.as_json['@context']).to include 'schema.org'
+  end
+
   it 'should have @type' do
     expect(item.as_json).to have_key '@type'
     expect(item.as_json['@type']).to be_present
