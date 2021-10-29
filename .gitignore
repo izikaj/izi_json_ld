@@ -7,3 +7,4 @@
 .byebug_history
 *.log
 spec/dummy/db/test.sqlite3
+spec/dummy/log/*
