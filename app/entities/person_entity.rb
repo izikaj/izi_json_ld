@@ -13,4 +13,8 @@ class PersonEntity < ApplicationEntity
   def dump_attributes
     attributes.except(:person_name).merge(name: person_name)
   end
+
+  def name
+    person_name
+  end
 end
