@@ -5,6 +5,7 @@ RSpec.describe ReviewEntity do
   let(:item_data) do
     {
       author: 'John',
+      publisher: 'Fodojo LLC',
       description: 'TODO',
       reviewRating: { ratingValue: 3 }
     }
@@ -69,6 +70,31 @@ RSpec.describe ReviewEntity do
       expect(author).to be_a Hash
       expect(author['@type']).to eq 'Organization'
       expect(author['name']).to eq raw.author.name
+    end
+  end
+
+  context 'publisher' do
+    it 'should parse publisher name as organizaton' do
+      publisher = item.as_json['publisher']
+      expect(publisher).to be_a Hash
+      expect(publisher['@type']).to eq 'Organization'
+      expect(publisher['name']).to eq item.publisher
+    end
+
+    it 'should allow to pass publisher hash' do
+      raw = described_class.new(item_data.merge(publisher: { person_name: 'Kenny' }))
+      publisher = raw.as_json['publisher']
+      expect(publisher).to be_a Hash
+      expect(publisher['@type']).to eq 'Person'
+      expect(publisher['name']).to eq raw.publisher.name
+    end
+
+    it 'should allow to pass publisher hash (Organization)' do
+      raw = described_class.new(item_data.merge(publisher: { name: 'Kenny' }))
+      publisher = raw.as_json['publisher']
+      expect(publisher).to be_a Hash
+      expect(publisher['@type']).to eq 'Organization'
+      expect(publisher['name']).to eq raw.publisher.name
     end
   end
 end
